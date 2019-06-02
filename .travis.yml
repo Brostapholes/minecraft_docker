@@ -10,7 +10,7 @@ services:
   - docker
 
 before_install:
-  - docker login -u toddd79 --password-stdin $(echo $docker_pass)
+  - echo "$MY_PASSWORD" | docker login --username toddd79 --password-stdin
   - docker --version
   - docker info
   - docker build ./
