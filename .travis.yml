@@ -10,7 +10,7 @@ services:
   - docker
 
 before_install:
-  - docker login -u $docker_user -p $docker_pass
+  - docker login -u toddd79 --password-stdin $(echo $docker_pass)
   - docker --version
   - docker info
   - docker build ./
@@ -21,9 +21,7 @@ before_install:
 script: docker build -t minecraft_server
 
 after_script:
-  - docker push $docker_user/minecraft_server
-  - docker kill $(docker ps -q)
-  - docker rm $(docker ps -a -q)
+  - docker push toddd79/minecraft_server
   - docker rmi $(docker images -q)
   - docker ps -a
   - docker images
