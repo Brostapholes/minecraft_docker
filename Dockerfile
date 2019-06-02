@@ -3,8 +3,8 @@ FROM openjdk:8u212-jre-alpine
 LABEL maintainer "Brostapholes"
 
 RUN apk update && \
-    apk upgrade -y && \
-    apk add -y wget 
+    apk upgrade && \
+    apk add wget 
 
 RUN addgroup -S minecraft && \
     adduser -S minecraft -G minecraft && \
