@@ -2,7 +2,6 @@
 #safelist
 branches:
   only:
-  - dev
   - master
 
 
@@ -11,12 +10,22 @@ services:
   - docker
 
 before_install:
+  - docker login -u $docker_user -p $docker_pass
   - docker --version
   - docker info
+  - docker build ./
+  - docker kill $(docker ps -q)
+  - docker rm $(docker ps -a -q)
+  - docker rmi $(docker images -q)
   - docker ps -a
+  - docker images
 
-script: docker build ./
+script: docker build -t minecraft_server
 
 after_script:
-  - docker images
+  - docker push $docker_user/minecraft_server
+  - docker kill $(docker ps -q)
+  - docker rm $(docker ps -a -q)
+  - docker rmi $(docker images -q)
   - docker ps -a
+  - docker images
