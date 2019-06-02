@@ -21,7 +21,6 @@ before_install:
 script: docker build -t minecraft_server
 
 after_script:
-  - docker push toddd79/minecraft_server
-  - docker rmi $(docker images -q)
+  - docker push toddd79/minecraft_server:latest
   - docker ps -a
   - docker images
